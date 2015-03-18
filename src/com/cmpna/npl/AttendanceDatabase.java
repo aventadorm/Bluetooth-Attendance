@@ -86,7 +86,8 @@ public class AttendanceDatabase extends Activity {
 			}
 		}
 		int sizeofdb = i;
-
+		showToast("db length"+sizeofdb);
+		showToast("dcb length"+sizeofdcb);
 		int[] pre = new int[100];
 		int[] flag = new int[100];
 
@@ -117,8 +118,7 @@ public class AttendanceDatabase extends Activity {
 		Cursor e = db.rawQuery("SELECT * FROM attendancetable", null);
 		e.moveToFirst();
 		while (!e.isAfterLast()) {
-			showToast(e.getString(0));
-			showToast(e.getString(1));
+			showToast(e.getString(0)+":"+e.getString(1));
 			e.moveToNext();
 		}
 

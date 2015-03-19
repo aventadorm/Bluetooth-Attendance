@@ -86,39 +86,31 @@ public class AttendanceDatabase extends Activity {
 			}
 		}
 		int sizeofdb = i;
-		showToast("db length"+sizeofdb);
-		showToast("dcb length"+sizeofdcb);
-		int[] pre = new int[100];
+		showToast("db length" + sizeofdb);
+		showToast("dcb length" + sizeofdcb);
 		int[] flag = new int[100];
 
 		for (i = 0; i < sizeofdcb; i++) {
 			for (j = 0; j < sizeofdb; j++) {
 				if (address[i].equals(dbaddress[j])) {
-					pre[i] = j;
-				} else {
-
-				}
-			}
-		}
-
-		for (i = 0; i < sizeofdcb; i++) {
-			for (j = 0; j < sizeofdb; j++) {
-				if (pre[i] == roll[j]) {
 					flag[j] = 1;
+
 				} else {
 
 				}
 			}
 		}
+		for(i=0;i<sizeofdb;i++)
+			showToast(roll[i]+Integer.toString(flag[i]));
 
 		for (j = 0; j < sizeofdb; j++)
 			db.execSQL("INSERT INTO attendancetable VALUES('" + roll[j] + "','"
 					+ flag[j] + "');");
-		
+
 		Cursor e = db.rawQuery("SELECT * FROM attendancetable", null);
 		e.moveToFirst();
 		while (!e.isAfterLast()) {
-			showToast(e.getString(0)+":"+e.getString(1));
+			showToast(e.getString(0) + ":" + e.getString(1));
 			e.moveToNext();
 		}
 

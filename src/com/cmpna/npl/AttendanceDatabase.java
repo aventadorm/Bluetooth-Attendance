@@ -11,9 +11,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Toast;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import jxl.*;
+import jxl.write.*;
+import jxl.write.Number;
+import jxl.write.biff.RowsExceededException;
 
 public class AttendanceDatabase extends Activity {
 	SQLiteDatabase db;
@@ -22,6 +29,7 @@ public class AttendanceDatabase extends Activity {
 	Integer[] roll = new Integer[100];
 	private Cursor students;
 	DBHelper sdb;
+	WritableWorkbook workbook;
 
 	ArrayList<BluetoothDevice> mDeviceList;
 
@@ -48,7 +56,7 @@ public class AttendanceDatabase extends Activity {
 		String d = String.valueOf(date);
 		String mo = String.valueOf(month);
 		// create database with time stamp as the name
-		String dbname = "date:" + d + ":" + mo + "time:" + h + ":" + m;
+		String dbname = "Date:" + d + "//" + mo + "Time:" + h + ":" + m;
 		db = openOrCreateDatabase(dbname, Context.MODE_PRIVATE, null);
 		db.execSQL("CREATE TABLE IF NOT EXISTS attendancetable(rollno INTEGER, attendance INTEGER);");
 		// db.execSQL("insert into "+"attendancetable"+"(rollno,attendance)values(33,0)");
@@ -100,12 +108,58 @@ public class AttendanceDatabase extends Activity {
 				}
 			}
 		}
-		for(i=0;i<sizeofdb;i++)
-			showToast(roll[i]+Integer.toString(flag[i]));
+		for (i = 0; i < sizeofdb; i++)
+			showToast(roll[i] + Integer.toString(flag[i]));
 
-		for (j = 0; j < sizeofdb; j++)
-			db.execSQL("INSERT INTO attendancetable VALUES('" + roll[j] + "','"
-					+ flag[j] + "');");
+		//for (j = 0; j < sizeofdb; j++)
+			//db.execSQL("INSERT INTO attendancetable VALUES('" + roll[j] + "','"
+				//	+ flag[j] + "');");
+		File path = Environment.getExternalStorageDirectory();
+		File file = new File(path, "/"+dbname+".xls");
+		try {
+			workbook = Workbook.createWorkbook(file);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		WritableSheet sheet = workbook.createSheet("First Sheet", 0);
+		Label label = new Label(0, 2, "A label record");
+		try {
+			sheet.addCell(label);
+		} catch (RowsExceededException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (WriteException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+
+		Number number = new Number(3, 4, 3.1459);
+		try {
+			sheet.addCell(number);
+		} catch (RowsExceededException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (WriteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		// All sheets and cells added. Now write out the workbook
+		try {
+			workbook.write();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			workbook.close();
+		} catch (WriteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 		Cursor e = db.rawQuery("SELECT * FROM attendancetable", null);
 		e.moveToFirst();

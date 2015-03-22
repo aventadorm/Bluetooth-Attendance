@@ -1,34 +1,64 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/activity_vertical_margin">
+    android:padding="@dimen/activity_vertical_margin"
+    android:background="#433e90">
 
     <TextView
         android:id="@+id/tv_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="17sp"
-        android:textColor="#ff0000"
-        android:text="@string/text_bluetooth_off" />
+        android:textSize="30sp"
+        android:text="@string/text_bluetooth_off"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="28dp"
+        android:textColor="#d2d2d2" />
 
     <Button
         android:id="@+id/btn_enable"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"        
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/text_enable" />
+        android:layout_height="wrap_content"
+        android:text="@string/text_enable"
+        android:layout_below="@+id/tv_status"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="73dp"
+        android:background="#326ada"
+        android:textColor="#d2d2d2" />
     
 
     
     <Button
         android:id="@+id/btn_scan"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"        
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_height="wrap_content"
         android:enabled="false"
-        android:text="@string/text_scan_devices" />
+        android:text="@string/text_scan_devices"
+        android:textColor="#d2d2d2"
+        android:background="#326ada"
+        android:layout_below="@+id/btn_enable"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="75dp" />
 
-</LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Student"
+        android:id="@+id/button"
+        android:layout_marginTop="79dp"
+        android:textColor="#d2d2d2"
+        android:background="#326ada"
+        android:layout_below="@+id/btn_scan"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="AddInfo" />
+
+</RelativeLayout>

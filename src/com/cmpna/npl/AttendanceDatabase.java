@@ -1,32 +1,26 @@
 package com.cmpna.npl;
 
-import com.cmpna.npl.R;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.view.View;
 import android.widget.Toast;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import jxl.*;
 import jxl.write.*;
 import jxl.write.Number;
 import jxl.write.biff.RowsExceededException;
 
 public class AttendanceDatabase extends Activity {
-	SQLiteDatabase db;
 	String[] address = new String[100];
 	String[] dbaddress = new String[100];;
 	Integer[] roll = new Integer[100];
@@ -40,7 +34,7 @@ public class AttendanceDatabase extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_paired_devices);
+		//setContentView(R.layout.activity_paired_devices);
 
 		mDeviceList = getIntent().getExtras().getParcelableArrayList(
 				"device.list");// retrieve arraylist of bluetoothdevice objects
@@ -167,13 +161,14 @@ public class AttendanceDatabase extends Activity {
 		// File(Environment.getExternalStorageDirectory(),
 		// filename+".xls"));
 		Uri uri = Uri.fromFile(file);
-		Intent emailintent = new Intent(Intent.ACTION_SEND);
+		//Intent emailintent = new Intent(Intent.ACTION_SEND);
+		Intent emailintent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+	            "mailto","", null));
 		emailintent.putExtra(Intent.EXTRA_SUBJECT, "Attendance for " + filename
 				+ ".");
 		emailintent.putExtra(Intent.EXTRA_TEXT, "Attached is attendance for "
 				+ d + "|" + mo + " at time :" + h + ":" + m + ".");
 		emailintent.putExtra(Intent.EXTRA_STREAM, uri);
-		emailintent.setType("text/plain");
 		startActivity(Intent.createChooser(emailintent,
 				"Send attendance as mail"));
 	}

@@ -26,7 +26,6 @@ import com.cmpna.npl.R;
 public class MainActivity extends Activity {
 	private TextView mStatusTv;
 	private Button mActivateBtn;
-	private Button mPairedBtn;
 	private Button mScanBtn;
 
 	private ProgressDialog mProgressDlg;
@@ -44,6 +43,7 @@ public class MainActivity extends Activity {
 		mStatusTv = (TextView) findViewById(R.id.tv_status);
 		mActivateBtn = (Button) findViewById(R.id.btn_enable);
 		mScanBtn = (Button) findViewById(R.id.btn_scan);
+
 
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		// progress dialog initialization and displaying
@@ -161,6 +161,10 @@ public class MainActivity extends Activity {
 	private void showToast(String message) {
 		Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT)
 				.show();
+	}
+	public void AddInfo(View v){
+		Intent ai = new Intent(this, AddStudent.class);
+		startActivity(ai);
 	}
 
 	private final BroadcastReceiver mReceiver = new BroadcastReceiver() {

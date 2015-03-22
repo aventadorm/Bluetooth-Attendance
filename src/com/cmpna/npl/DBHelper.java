@@ -46,4 +46,12 @@ public class DBHelper extends SQLiteAssetHelper {
 		return d;
 	}
 
+	public void deleteStudent(int w) {
+		// TODO Auto-generated method stub
+		SQLiteDatabase sdb = getReadableDatabase();
+		sdb.execSQL("DELETE from Main WHERE rollno = '"
+				+ w + "'");
+		
+	}
+
 }

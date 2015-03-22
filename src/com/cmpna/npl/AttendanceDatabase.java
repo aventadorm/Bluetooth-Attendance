@@ -172,6 +172,23 @@ public class AttendanceDatabase extends Activity {
 		startActivity(Intent.createChooser(emailintent,
 				"Send attendance as mail"));
 	}
+	
+
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		finish();
+	}
+
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		finish();
+	}
+
 
 	// function for displaying toast messages
 	private void showToast(String message) {

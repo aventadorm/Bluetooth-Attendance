@@ -163,7 +163,7 @@ public class MainActivity extends Activity {
 				.show();
 	}
 	public void AddInfo(View v){
-		Intent ai = new Intent(this, AddStudent.class);
+		Intent ai = new Intent(this, ManageStudents.class);
 		startActivity(ai);
 	}
 

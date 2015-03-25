@@ -27,12 +27,14 @@ public class MainActivity extends Activity {
 	private TextView mStatusTv;
 	private Button mActivateBtn;
 	private Button mScanBtn;
+	private Toast t;
 
 	private ProgressDialog mProgressDlg;
 
 	private ArrayList<BluetoothDevice> mDeviceList = new ArrayList<BluetoothDevice>();
 
 	private BluetoothAdapter mBluetoothAdapter;
+	private int cd = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,6 @@ public class MainActivity extends Activity {
 		mStatusTv = (TextView) findViewById(R.id.tv_status);
 		mActivateBtn = (Button) findViewById(R.id.btn_enable);
 		mScanBtn = (Button) findViewById(R.id.btn_scan);
-
 
 		mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 		// progress dialog initialization and displaying
@@ -56,9 +57,11 @@ public class MainActivity extends Activity {
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
 
-						mBluetoothAdapter.cancelDiscovery();// cancels discovery
-															// if cancel button
-															// is pressed
+						mBluetoothAdapter.cancelDiscovery();
+						cd = 0;
+						t.cancel();// cancels discovery
+									// if cancel button
+									// is pressed
 					}
 				});
 
@@ -70,6 +73,7 @@ public class MainActivity extends Activity {
 				@Override
 				public void onClick(View arg0) {
 					mBluetoothAdapter.startDiscovery();
+					cd = 1;
 				}
 			});
 			// Activates the bluetooth module if switched off
@@ -118,7 +122,7 @@ public class MainActivity extends Activity {
 													// ongoing
 			}
 		}
-
+		t.cancel();
 		super.onPause();
 	}
 
@@ -131,7 +135,7 @@ public class MainActivity extends Activity {
 
 	private void showEnabled() {
 		mStatusTv.setText("Bluetooth is On");
-		mStatusTv.setTextColor(Color.BLUE);
+		mStatusTv.setTextColor(Color.WHITE);
 
 		mActivateBtn.setText("Disable");
 		mActivateBtn.setEnabled(true);
@@ -159,11 +163,15 @@ public class MainActivity extends Activity {
 	}
 
 	private void showToast(String message) {
-		Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT)
-				.show();
+		t = Toast
+				.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+		t.show();
+
 	}
-	public void AddInfo(View v){
+
+	public void AddInfo(View v) {
 		Intent ai = new Intent(this, ManageStudents.class);
+		t.cancel();
 		startActivity(ai);
 	}
 
@@ -191,13 +199,15 @@ public class MainActivity extends Activity {
 				mProgressDlg.dismiss();// discovery has finished, call next
 										// activity and pass devicelist
 
-				Intent newIntent = new Intent(MainActivity.this,
-						AttendanceDatabase.class);
+				if (cd == 1) {
+					Intent newIntent = new Intent(MainActivity.this,
+							AttendanceDatabase.class);
 
-				newIntent.putParcelableArrayListExtra("device.list",
-						mDeviceList);
+					newIntent.putParcelableArrayListExtra("device.list",
+							mDeviceList);
 
-				startActivity(newIntent);
+					startActivity(newIntent);
+				}
 			} else if (BluetoothDevice.ACTION_FOUND.equals(action)) {
 				BluetoothDevice device = (BluetoothDevice) intent
 						.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);// discovery

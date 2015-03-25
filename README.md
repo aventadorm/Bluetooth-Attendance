@@ -5,4 +5,5 @@ Scans the vicinity for students' bluetooth devices and matches them against a da
 
 
 Uses the [JExcelApi](http://jexcelapi.sourceforge.net) Java API to create and modify excel spreadsheets.
+
 Uses the [Android SQLiteAssetHelper](https://github.com/jgilfelt/android-sqlite-asset-helper) library to access the SQLiteDatabase.

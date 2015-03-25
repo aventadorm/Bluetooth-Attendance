@@ -1,6 +1,7 @@
 package com.cmpna.npl;
 
 
+import android.R;
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
@@ -19,14 +20,17 @@ public class DCursorAdapter extends CursorAdapter {
 	@Override
 	public View newView(Context context, Cursor cursor, ViewGroup parent) {
 		return LayoutInflater.from(context).inflate(
-				R.layout.simple_list_item_1, parent, false);
+				R.layout.simple_list_item_2, parent, false);
 	}
 
 	@Override
 	public void bindView(View view, Context context, Cursor cursor) {
 		// TODO Auto-generated method stub
 		TextView wtext = (TextView) view.findViewById(R.id.text1);
+		TextView stext = (TextView) view.findViewById(R.id.text2);
+		String btadd = cursor.getString(cursor.getColumnIndexOrThrow("btadd"));
 		String rollno = cursor.getString(cursor.getColumnIndexOrThrow("rollno"));
-		wtext.setText(rollno);
+		stext.setText("Bluetooth Address: "+btadd);
+		wtext.setText("Roll No.: "+rollno);
 	}
 }

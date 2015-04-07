@@ -31,6 +31,6 @@ public class DCursorAdapter extends CursorAdapter {
 		String btadd = cursor.getString(cursor.getColumnIndexOrThrow("btadd"));
 		String rollno = cursor.getString(cursor.getColumnIndexOrThrow("rollno"));
 		stext.setText("Bluetooth Address: "+btadd);
-		wtext.setText("Roll No.: "+rollno);
+		wtext.setText(rollno);
 	}
 }

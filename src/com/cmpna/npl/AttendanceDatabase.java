@@ -90,8 +90,8 @@ public class AttendanceDatabase extends Activity {
 			}
 		}
 		int sizeofdb = i;
-		showToast("db length" + sizeofdb);
-		showToast("dcb length" + sizeofdcb);
+		showToast("Database has " + sizeofdb+" students.");
+		showToast("Found " + sizeofdcb+" devices.");
 		int[] flag = new int[100];
 
 		for (i = 0; i < sizeofdcb; i++) {
@@ -178,6 +178,7 @@ public class AttendanceDatabase extends Activity {
 	protected void onPause() {
 		// TODO Auto-generated method stub
 		super.onPause();
+		
 		finish();
 	}
 

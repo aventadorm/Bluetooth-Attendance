@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TwoLineListItem;
 
 public class DeleteStudents extends Activity {
 	ListView l;
@@ -34,7 +35,7 @@ public class DeleteStudents extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
-				w = ((TextView) view).getText().toString();
+				w = ((TwoLineListItem) view).getText1().getText().toString();
 
 				new AlertDialog.Builder(DeleteStudents.this)
 						.setTitle("Delete entry")

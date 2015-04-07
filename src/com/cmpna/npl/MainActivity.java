@@ -59,9 +59,11 @@ public class MainActivity extends Activity {
 
 						mBluetoothAdapter.cancelDiscovery();
 						cd = 0;
-						t.cancel();// cancels discovery
-									// if cancel button
-									// is pressed
+						if (t != null) {
+							t.cancel();
+						}// cancels discovery
+						// if cancel button
+						// is pressed
 					}
 				});
 
@@ -122,7 +124,8 @@ public class MainActivity extends Activity {
 													// ongoing
 			}
 		}
-		t.cancel();
+		if (t != null)
+			t.cancel();
 		super.onPause();
 	}
 
@@ -171,7 +174,9 @@ public class MainActivity extends Activity {
 
 	public void AddInfo(View v) {
 		Intent ai = new Intent(this, ManageStudents.class);
-		t.cancel();
+		if (t != null) {
+			t.cancel();
+		}
 		startActivity(ai);
 	}
 
